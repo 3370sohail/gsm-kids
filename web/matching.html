@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Starter Template - Materialize</title>
+
+    <!-- CSS  -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 <style>
+
+
 div#memory_board{
+  position: relative;
 	background:#CCC;
 	border:#999 1px solid;
-	width:800px;
-	height:540px;
-	padding:24px;
-	margin:0px auto;
+	width:100%;
+	height:100%;
+	padding:1%;
+	margin: auto;
 }
 div#memory_board > div{
+  position: relative;
 	background: url(tile_bg.jpg) no-repeat;
 	border:#000 1px solid;
-	width:71px;
-	height:71px;
-	float:left;
+	width:10vh;
+	height:5vw;
+	float:center;
 	margin:10px;
 	padding:20px;
 	font-size:64px;
 	cursor:pointer;
 	text-align:center;
 }
+
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-// Scripted By Adam Khoury in connection with the following video tutorial:
-// http://www.youtube.com/watch?v=c_ohDPWmsM0
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
 var memory_tile_ids = [];
@@ -50,7 +63,8 @@ function newBoard(){
 	var output = '';
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
-		output += '<div id="tile_'+i+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+    j = i + 1;
+		output += '<div class="col s4 m4" id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"><span class="flow-text">'+j+'</span></div>';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
@@ -131,7 +145,9 @@ $("#nav-three a")
 </script>
 </head>
 <body>
-<div id="memory_board"></div>
+<div class="container">
+<div class="row" id="memory_board"></div>
+</div>
 <audio id='mySound_0' src='card/card_1.mp3'/>
 <audio id='mySound_1' src='card/card_2.mp3'/>
 <audio id='mySound_2' src='card/card_3.mp3'/>
@@ -157,5 +173,8 @@ $("#nav-three a")
 <audio id='mySound_22' src='card/card_20.mp3'/>
 <audio id='mySound_23' src='card/card_20.mp3'/>
 <script>newBoard();</script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/init.js"></script>
 </body>
 </html>

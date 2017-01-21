@@ -21,7 +21,7 @@ div#memory_board{
 }
 div#memory_board > div{
 
-  background:#CCC;
+  background:#34495e;
 
 	border:#000 1px solid;
 	width:9vw;
@@ -42,8 +42,7 @@ var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H',
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
-var audio = new Audio(),
-i = 0;
+var audio = new Audio(), done = '';
 var playlist = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3'};
 //var playlist = new Array('sms.mp3', 'beep.mp3');
 
@@ -75,6 +74,7 @@ function memoryFlipTile(tile,val){
 			memory_tile_ids.push(tile.id);
       audio.src = playlist[val]
       audio.play();
+      done = tile.id;
       //console.log(tile);
       //console.log(val);
 
@@ -88,25 +88,31 @@ function memoryFlipTile(tile,val){
         audio.src = 'letters/set_completed.mp3';
         audio.play();
         tiles_flipped += 2;
+        document.getElementById(memory_tile_ids[0]).onmouseover = "PlaySound('mySound_al')";
+        document.getElementById(memory_tile_ids[0]).onmouseout = "StopSound('mySound_al')";
+        document.getElementById(memory_tile_ids[1]).onmouseover = "PlaySound('mySound_al')";
+        document.getElementById(memory_tile_ids[1]).onmouseout = "StopSound('mySound_al')";
         console.log(tile);
         console.log(val);
 				// Clear both arrays
 				memory_values = [];
-            	memory_tile_ids = [];
+        memory_tile_ids = [];
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
 					alert("Board cleared... generating new board");
 					document.getElementById('memory_board').innerHTML = "";
 					newBoard();
-				}
+				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
 				    // Flip the 2 tiles back over
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
-				    tile_1.style.background = 'url(tile_bg.jpg) no-repeat';
+            audio.src = 'letters/not_a_match.mp3';
+            audio.play();
+				    tile_1.style.background = '#34495e';
             	    tile_1.innerHTML = "";
-				    tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
+				    tile_2.style.background = '#34495e';
             	    tile_2.innerHTML = "";
 				    // Clear both arrays
 				    memory_values = [];
@@ -127,22 +133,6 @@ function StopSound(soundobj) {
     thissound.pause();
     thissound.currentTime = 0;
 }
-</script>
-<script>
-$(document).ready(function(){
-    $("tile_1").hover(function(){
-        $(this).css("background-color", "yellow");
-        }, function(){
-        $(this).css("background-color", "pink");
-    });
-});
-canvas : document.getElementById("myCanvas")
-var beepThree = $("#beep-three")[0];
-$("#nav-three a")
-	.mouseenter(function() {
-		beepThree.pause();
-		beepThree.play();
-	});
 </script>
 </head>
 <body>
@@ -188,7 +178,7 @@ $("#nav-three a")
 <audio id='mySound_21' src='card/card_22.mp3'/>
 <audio id='mySound_22' src='card/card_23.mp3'/>
 <audio id='mySound_23' src='card/card_24.mp3'/>
-<audio id='mySound_com' src='letters/completed.mp3'/>
+<audio id='mySound_al' src='letters/already_matched.mp3'/>
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

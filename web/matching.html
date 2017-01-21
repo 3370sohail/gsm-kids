@@ -33,7 +33,7 @@ var memory_tile_ids = [];
 var tiles_flipped = 0;
 var audio = new Audio(),
 i = 0;
-var playlist = { tile_1:'sms.mp3', tile_2:'beep.mp3' };
+var playlist = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3'};
 //var playlist = new Array('sms.mp3', 'beep.mp3');
 
 Array.prototype.memory_tile_shuffle = function(){
@@ -54,7 +54,6 @@ function newBoard(){
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
-
 function memoryFlipTile(tile,val){
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = '#FFF';
@@ -62,7 +61,7 @@ function memoryFlipTile(tile,val){
 		if(memory_values.length == 0){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
-      audio.src = playlist[tile.id]
+      audio.src = playlist[val]
       audio.play();
       console.log(tile);
       console.log(val);
@@ -134,12 +133,26 @@ $("#nav-three a")
 <p onmouseover="PlaySound('mySound')"
     onmouseout="StopSound('mySound')">Hover Over Me To Play</p>
 <p>Hover the mouse pointer over this paragraph.</p>
-<audio id='mySound_0' src='sms.mp3'/>
-<audio id='mySound_1' src='beep.mp3'/>
-<audio id='mySound_2' src='sms.mp3'/>
-<audio id='mySound_3' src='beep.mp3'/>
-<audio id='mySound_4' src='sms.mp3'/>
-<audio id='mySound_5' src='beep.mp3'/>
+<audio id='mySound_0' src='card/card_1.mp3'/>
+<audio id='mySound_1' src='card/card_2.mp3'/>
+<audio id='mySound_2' src='card/card_3.mp3'/>
+<audio id='mySound_3' src='card/card_4.mp3'/>
+<audio id='mySound_4' src='card/card_5.mp3'/>
+<audio id='mySound_5' src='card/card_6.mp3'/>
+<audio id='mySound_6' src='card/card_7.mp3'/>
+<audio id='mySound_7' src='card/card_8.mp3'/>
+<audio id='mySound_8' src='card/card_9.mp3'/>
+<audio id='mySound_9' src='card/card_10.mp3'/>
+<audio id='mySound_10' src='card/card_11.mp3'/>
+<audio id='mySound_11' src='card/card_12.mp3'/>
+<audio id='mySound_12' src='card/card_13.mp3'/>
+<audio id='mySound_13' src='card/card_14.mp3'/>
+<audio id='mySound_14' src='card/card_15.mp3'/>
+<audio id='mySound_15' src='card/card_16.mp3'/>
+<audio id='mySound_16' src='card/card_17.mp3'/>
+<audio id='mySound_17' src='card/card_18.mp3'/>
+<audio id='mySound_18' src='card/card_19.mp3'/>
+<audio id='mySound_20' src='card/card_20.mp3'/>
 <script>newBoard();</script>
 </body>
 </html>

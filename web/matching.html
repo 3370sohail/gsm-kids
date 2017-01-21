@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Starter Template - Materialize</title>
+<title>GSM-Kids</title>
 
     <!-- CSS  -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -83,10 +83,13 @@ function memoryFlipTile(tile,val){
 			memory_tile_ids.push(tile.id);
       audio.src = playlist[val];
       audio.play();
+
 			if(memory_values[0] == memory_values[1]){
-        audio.src = playlist[val];
+        audio.src = 'letters/set_completed.mp3';
         audio.play();
         tiles_flipped += 2;
+        console.log(tile);
+        console.log(val);
 				// Clear both arrays
 				memory_values = [];
             	memory_tile_ids = [];
@@ -157,6 +160,7 @@ $("#nav-three a")
   </nav>
 <div class="section no-pad-bot" id="index-banner">
 <div class="container">
+<div class="row center"><h1 class="header center orange-text">Level 1</h1></div>
 <div class="row center" id="memory_board"></div>
 </div>
 </div>
@@ -184,6 +188,7 @@ $("#nav-three a")
 <audio id='mySound_21' src='card/card_22.mp3'/>
 <audio id='mySound_22' src='card/card_23.mp3'/>
 <audio id='mySound_23' src='card/card_24.mp3'/>
+<audio id='mySound_com' src='letters/completed.mp3'/>
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

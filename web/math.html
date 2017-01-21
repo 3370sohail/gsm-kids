@@ -24,8 +24,8 @@ div#memory_board > div{
   background:#34495e;
 
 	border:#000 1px solid;
-	width:15vw;
-	height:16vh;
+	width:9vw;
+	height:10vh;
 	margin-left:1vw;
   margin-bottom:1vw;
 	padding:1vw;
@@ -48,7 +48,6 @@ var memory_tile_ids = [];
 var tiles_flipped = 0;
 var audio = new Audio(), done = '';
 var playlist = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3'};
-//var playlist = new Array('sms.mp3', 'beep.mp3');
 
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
@@ -104,7 +103,8 @@ function memoryFlipTile(tile,val){
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
 					alert("Board cleared... generating new board");
-					document.getElementById('memory_board').innerHTML = '<a class="waves-effect waves-light btn-large">Couninue</a> <a class="waves-effect waves-light btn-large">Replay</a>';
+					document.getElementById('memory_board').innerHTML = "";
+					newBoard();
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
@@ -140,19 +140,23 @@ function StopSound(soundobj) {
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">GSM-Kids</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">GSM-Kids</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="matching.html">Matching Game</a></li>
+        <li><a href="#">Navbar Link</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="matching.html">Matching Game</a></li>
+        <li><a href="matching.html">Navbar Link</a></li>
       </ul>
       <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+<div class="section no-pad-bot" id="index-banner">
+<div class="container">
 <div class="row center"><h1 class="header center orange-text">Level 1</h1></div>
 <div class="row center" id="memory_board"></div>
+</div>
+</div>
 <audio id='mySound_0' src='card/card_1.mp3'/>
 <audio id='mySound_1' src='card/card_2.mp3'/>
 <audio id='mySound_2' src='card/card_3.mp3'/>

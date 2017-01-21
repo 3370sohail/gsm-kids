@@ -40,8 +40,15 @@ div#memory_board > div{
 <script>
 $(document).ready(function(){
   track1 = new Audio('letters/level1_matching.mp3');
+  track2 = new Audio('match_information.mp3')
   track1.play();
+  track2.pause();
+  track1.addEventListener('ended', function() {
+    track2.play();
+  })
 });
+  
+
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
 var memory_tile_ids = [];

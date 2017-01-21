@@ -63,16 +63,18 @@ function memoryFlipTile(tile,val){
 			memory_tile_ids.push(tile.id);
       audio.src = playlist[val]
       audio.play();
-      console.log(tile);
-      console.log(val);
+      //console.log(tile);
+      //console.log(val);
 
 		} else if(memory_values.length == 1){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
-      audio.src = playlist[tile.id];
+      audio.src = playlist[val];
       audio.play();
 			if(memory_values[0] == memory_values[1]){
-				tiles_flipped += 2;
+        audio.src = playlist[val];
+        audio.play();
+        tiles_flipped += 2;
 				// Clear both arrays
 				memory_values = [];
             	memory_tile_ids = [];
@@ -130,9 +132,6 @@ $("#nav-three a")
 </head>
 <body>
 <div id="memory_board"></div>
-<p onmouseover="PlaySound('mySound')"
-    onmouseout="StopSound('mySound')">Hover Over Me To Play</p>
-<p>Hover the mouse pointer over this paragraph.</p>
 <audio id='mySound_0' src='card/card_1.mp3'/>
 <audio id='mySound_1' src='card/card_2.mp3'/>
 <audio id='mySound_2' src='card/card_3.mp3'/>
@@ -152,7 +151,11 @@ $("#nav-three a")
 <audio id='mySound_16' src='card/card_17.mp3'/>
 <audio id='mySound_17' src='card/card_18.mp3'/>
 <audio id='mySound_18' src='card/card_19.mp3'/>
+<audio id='mySound_19' src='card/card_20.mp3'/>
 <audio id='mySound_20' src='card/card_20.mp3'/>
+<audio id='mySound_21' src='card/card_20.mp3'/>
+<audio id='mySound_22' src='card/card_20.mp3'/>
+<audio id='mySound_23' src='card/card_20.mp3'/>
 <script>newBoard();</script>
 </body>
 </html>

@@ -9,76 +9,51 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="game.css" media="screen,projection" >
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body >
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">GSM-Kids</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">GSM-Kids</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
+        <li><a href="index.html">Navbar Link</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="matching.html">Navbar Link</a></li>
+        <li><a href="#">Navbar Link</a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">Global Stundet Moblie platfrom for kid</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">
-        <a href="">Matching</a></h5>
-      </div>
-      <div class="row center" >
-        <p> game </p>
-      </div>
-      <br><br>
-
-    </div>
-  </div>
   
   <div class="container">
     <div class="section">
 
-      <!--   Icon Section   -->
       <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center"></h5>
+      	<div class="wrap">
+<div class="game"></div>
+	
+	<div class="modal-overlay">
+		<div class="modal">
+			<h2 class="winner">You Rock!</h2>
+			<button class="restart">Play Again?</button>
+			<p class="message">Developed on <a href="http://codepen.io">CodePen</a> by <a href="http://codepen.io/natewiley">Nate Wiley</a></p>
+			<p class="share-text">Share it?</p>
+			<ul class="social">
+				<li><a target="_blank" class="twitter" href="http://twitter.com/share?url=http://codepen.io/natewiley/pen/HBrbL"><span class="brandico-twitter-bird"></span></a></li>
+				<li><a target="_blank" class="facebook" href="http://www.facebook.com/sharer.php?u=http://codepen.io/natewiley/pen/HBrbL"><span class="brandico-facebook"></span></a></li>
+				<li><a target="_blank" class="google" href="https://plus.google.com/share?url=http://codepen.io/natewiley/pen/HBrbL"><span class="brandico-googleplus-rect"></span></a></li>
+			</ul>
+		</div>
+	</div>
+  <footer>
+		<p class="disclaimer">All logos are property of their respective owners, No Copyright infringement intended.</p>
+	</footer>
+  </div><!-- End Wrap -->
 
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Easy to work with</h5>
-
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
-          </div>
-        </div>
       </div>
-
-    </div>
-    <br><br>
-
-    <div class="section">
-
-    </div>
+     </div>
+       
   </div>
 
   <footer class="page-footer orange">
@@ -123,6 +98,7 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script src="game.js"></script>
 
   </body>
 </html>

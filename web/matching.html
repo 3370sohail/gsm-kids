@@ -38,6 +38,10 @@ div#memory_board > div{
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+  track1 = new Audio('letters/level1_matching.mp3');
+  track1.play();
+});
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
 var memory_tile_ids = [];

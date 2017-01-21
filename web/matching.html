@@ -23,6 +23,7 @@ div#memory_board > div{
 	text-align:center;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 // Scripted By Adam Khoury in connection with the following video tutorial:
 // http://www.youtube.com/watch?v=c_ohDPWmsM0
@@ -30,6 +31,11 @@ var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H',
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
+var audio = new Audio(),
+i = 0;
+//var point = { tile_1:'sms.mp3', tile_2:'beep.mp3' };
+var playlist = new Array('sms.mp3', 'beep.mp3');
+
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
     while(--i > 0){
@@ -44,10 +50,11 @@ function newBoard(){
 	var output = '';
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
-		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '<div id="tile_'+i+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
+
 function memoryFlipTile(tile,val){
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = '#FFF';
@@ -55,9 +62,14 @@ function memoryFlipTile(tile,val){
 		if(memory_values.length == 0){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
+      audio.src = playlist[i];
+      audio.play();
+      alert(tile.id);
 		} else if(memory_values.length == 1){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
+      audio.src = playlist[i+1];
+      audio.play();
 			if(memory_values[0] == memory_values[1]){
 				tiles_flipped += 2;
 				// Clear both arrays
@@ -87,10 +99,45 @@ function memoryFlipTile(tile,val){
 		}
 	}
 }
+function PlaySound(soundobj) {
+    var thissound=document.getElementById(soundobj);
+    thissound.play();
+}
+
+function StopSound(soundobj) {
+    var thissound=document.getElementById(soundobj);
+    thissound.pause();
+    thissound.currentTime = 0;
+}
+</script>
+<script>
+$(document).ready(function(){
+    $("tile_1").hover(function(){
+        $(this).css("background-color", "yellow");
+        }, function(){
+        $(this).css("background-color", "pink");
+    });
+});
+canvas : document.getElementById("myCanvas")
+var beepThree = $("#beep-three")[0];
+$("#nav-three a")
+	.mouseenter(function() {
+		beepThree.pause();
+		beepThree.play();
+	});
 </script>
 </head>
 <body>
 <div id="memory_board"></div>
+<p onmouseover="PlaySound('mySound')"
+    onmouseout="StopSound('mySound')">Hover Over Me To Play</p>
+<p>Hover the mouse pointer over this paragraph.</p>
+<audio id='mySound_0' src='sms.mp3'/>
+<audio id='mySound_1' src='beep.mp3'/>
+<audio id='mySound_2' src='sms.mp3'/>
+<audio id='mySound_3' src='beep.mp3'/>
+<audio id='mySound_4' src='sms.mp3'/>
+<audio id='mySound_5' src='beep.mp3'/>
 <script>newBoard();</script>
 </body>
 </html>

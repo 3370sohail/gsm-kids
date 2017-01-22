@@ -68,16 +68,7 @@ $(document).ready(function(){
     track1 = new Audio('spell_instructions.mp3');
     track1.play();
   });
-  function PlaySound(soundobj) {
-    var thissound=document.getElementById(soundobj);
-    thissound.play();
-  }
 
-  function StopSound(soundobj) {
-      var thissound=document.getElementById(soundobj);
-      thissound.pause();
-      thissound.currentTime = 0;
-  }
 
 var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE", "VAULT", "HAPPY", "BIRTHDAY", "NUMERAL", "MILLION"];
 var list_of_words_audio = {COMMA:"spelling_audio/comma.mp3", LUNAR:"spelling_audio/lunar.mp3", BUTTER:"spelling_audio/butter.mp3", MUTTER:"spelling_audio/mutter.mp3", STORE:"spelling_audio/store.mp3", VAULT:"spelling_audio/vault.mp3", HAPPY:"spelling_audio/happy.mp3", BIRTHDAY:"spelling_audio/birthday.mp3", NUMERAL:"spelling_audio/numeral.mp3", MILLION:"spelling_audio/million.mp3"};
@@ -110,7 +101,7 @@ function input_audio_pause() {
 
 // on load
 function onLoad(){
-    document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 10) + 1)];
+    document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 10))];
 	  document.getElementById('memory_board').innerHTML = output;
 }
 //loop that plays audio of each letter inputted.
@@ -123,7 +114,7 @@ function myLoop (i, string) {
       }
 
       i++;
-      if (i < str1.length + 1) {
+      if (i < string.length + 1) {
          myLoop(i, string);
       }
    }, 500)
@@ -133,7 +124,6 @@ function on_click_check(){
   //when you click check button
   string = document.getElementById("myText").value
   myLoop(0, string)
-  setInterval(playSound2, 45);
 }
 function on_click_submit(){
   //when you click submit button
@@ -141,7 +131,8 @@ function on_click_submit(){
     //when the spelling is correct.
     if (document.getElementById("word_id").innerHTML.toLowerCase() == document.getElementById("myText").value.toLowerCase())
     {
-        document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 10) + 1)];
+        document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 10) )];
+
         document.getElementById("myText").value = "";
 
         audio.src = "spelling_audio/correct.mp3"

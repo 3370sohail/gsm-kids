@@ -1,9 +1,5 @@
-This is a spelling game. You will be presented with a word. When you hover over 
-this word, it will be repeated back to you. Underneath the word is a button. When 
-you hover over this button, you are met with the message, "Click to enter input". 
-When you type your answer and press enter, you will 
-be presented with either "Incorrect" or "Correct". If you are incorrect, you will 
-be met with an "Incorrect" message and prompted to continue imputing until it is 
-correct.  When you are correct,you will be met with a "correct" message and be 
-given a new word to spell. After you have spelled 5 words correctly, you 
-are met with a congratulatory statement with two options, Replay or Continue. 
+This is a spelling game. You will be presented with a word. When you hover over this word,
+ it will be repeated back to you. Underneath the word are two buttons. When you hover over
+ the buttons, they will tell you their functions. The check letters button repeats every 
+letter you have typed so far. The check spelling button tells you whether you have spelled 
+the word correctly. 

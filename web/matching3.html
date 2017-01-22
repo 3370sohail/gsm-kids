@@ -142,14 +142,21 @@ function StopSound(soundobj) {
 </script>
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">GSM-Kids</a>
+	<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo" onmouseover='PlaySound("home")', onmouseout='StopSound("home")'>GSM-Kids</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="matching.html">Matching Game</a></li>
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
       </ul>
-
+      <ul class="right hide-on-med-and-down">
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
+      </ul>
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="matching.html">Matching Game</a></li>
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
       </ul>
       <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>

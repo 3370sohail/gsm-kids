@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GSM-Kids</title>
+
+    <!-- CSS  -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<style>
+
+input[type=text] {
+    background-color: deepskyblue;
+    color: darkorange;
+}
+
+div#memory_board{
+	width:100%;
+	height:100%;
+	padding:1%;
+	margin: auto;
+}
+div#memory_board > div{
+
+  background:#34495e;
+
+	border:#000 1px solid;
+	width:30vw;
+	height:20vh;
+  margin-left: 40vh;
+  margin-right: auto;
+  margin-bottom:1vw;
+	font-size:200%;
+	cursor:pointer;
+	text-align:center;
+    align-items: center
+}
+
+div#textfield{
+	width:100%;
+	height:70vh;
+	padding:1%;
+	margin: auto;
+  cursor:pointer;
+	text-align:center;
+}
+.button {
+    background-color: #4CAF50;
+    width: 60vh;
+    height: 30vh;
+    border: none;
+    color: white;
+    padding: -55px -42px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 36px;
+}
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    //track1 = new Audio('math_instructions.mp3');
+    //track1.play();
+  });
+  function PlaySound(soundobj) {
+    var thissound = document.getElementById(soundobj);
+    thissound.play();
+  }
+
+  function StopSound(soundobj) {
+      var thissound=document.getElementById(soundobj);
+      thissound.pause();
+      thissound.currentTime = 0;
+  }
+
+  document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+            audios[i].pause();
+        }
+    }
+  }, true);
+
+var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE", "VAULT", "HAPPY", "BIRTHDAY", "NUMERAL", "MILLION"];
+var list_of_words_audio = {COMMA:"spelling_audio/comma.mp3", LUNAR:"spelling_audio/lunar.mp3", BUTTER:"spelling_audio/butter.mp3", MUTTER:"spelling_audio/mutter.mp3", STORE:"spelling_audio/store.mp3", VAULT:"spelling_audio/vault.mp3", HAPPY:"spelling_audio/happy.mp3", BIRTHDAY:"spelling_audio/birthday.mp3", NUMERAL:"spelling_audio/numeral.mp3", MILLION:"spelling_audio/million.mp3"};
+var audio = new Audio(), done = '';
+var alpha = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3', M: 'letters/M.mp3', N: 'letters/N.mp3',O: 'letters/O.mp3',
+P:'letters/P.mp3', Q:'letters/Q.mp3', R:'letters/R.mp3', S:'letters/S.mp3', T:'letters/T.mp3', U:'letters/U.mp3', V:'letters/V.mp3', W:'letters/W.mp3', X:'letters/X.mp3', Y:'letters/Y.mp3', Z:'letters/Z.mp3'}
+
+var num = { "1":'numbers/1.mp3', "2":'numbers/2.mp3', "3":'numbers/3.mp3', "4":'numbers/4.mp3', "5":'numbers/5.mp3', "6":'numbers/6.mp3', "7":'numbers/7.mp3', "8":'numbers/8.mp3', "9":'numbers/9.mp3', "0":'numbers/0.mp3', '+':'numbers/+.mp3' };
+//var playlist = new Array('sms.mp3', 'beep.mp3');
+var x = Math.floor(Math.random() * 10);
+var y = Math.floor(Math.random() * 10);
+var sum = y + x;
+var LOOP_INTERVALS = {};
+
+function input_text_sound() {
+  //find last character of the input text.
+    var char = document.getElementById("myText").value.slice(-1);
+
+    audio.src = num[char];
+    audio.play();
+}
+
+
+// on load
+function onLoad(){
+    document.getElementById("word_id").innerHTML = String(x) + '+' +  String(y);
+}
+//loop that plays audio of each letter inputted.
+function myLoop (i, string) {
+  setTimeout(function () {
+      if (i >= 1)
+      {
+        audio.src = num[string[i-1]];
+        audio.play();
+      }
+
+      i++;
+      if (i < string.length + 1) {
+         myLoop(i, string);
+      }
+   }, 500)
+}
+
+function on_click_check(){
+  alert(String(sum));
+
+  //when you click check button
+  string = document.getElementById("myText").value;
+  // myLoop(0, string);
+}
+function on_click_submit(){
+  alert(String(sum));
+  alert(document.getElementById("myText").value);
+
+  //when you click submit button
+
+    //when the spelling is correct.
+    if (String(sum) != document.getElementById("myText").value)
+    {
+
+
+      audio.src = "spelling_audio/incorrect.mp3"
+      audio.play();
+
+    }
+    //when the spelling is incorrect.
+    else
+    {
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+      sum = y + x ;
+      document.getElementById("myText").value = ""
+      document.getElementById("word_id").innerHTML = String(x) + '+' +  String(y);
+
+        audio.src = "spelling_audio/correct.mp3"
+        audio.play();
+    }
+
+}
+
+//play sound
+function mat_out() {
+  string = String(x) + '+' + String(y)
+
+  for (i = 0; i < 3; i++) {
+    (function(i) {
+      setTimeout(function() {
+        if (audio.src) {
+          audio.src = num[string[i]];
+          audio.play();
+        }
+      }, i * 500);
+    })(i)
+  }
+}
+
+function mat_out_stop() {
+  audio.src = null;
+  audio.pause();
+  audio.currentTime = 0;
+}
+
+//hover over title
+function titleStart(){
+  audio.src = num[document.getElementById("word_id").innerHTML];
+  audio.play();
+}
+//stop hovering over title
+function titleStop(){
+  audio.src =num[document.getElementById("word_id").innerHTML];
+  audio.pause();
+  audio.currentTime = 0;
+}
+
+</script>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo" onmouseover='PlaySound("home")', onmouseout='StopSound("home")'>GSM-Kids</a>
+
+
+      <ul class="right hide-on-med-and-down">
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
+      </ul>
+      <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+<div class="section no-pad-bot" id="index-banner">
+<div class="container">
+<div class="row center" onmouseover="mat_out()" onmouseout="mat_out_stop()" ><h1 class="header center orange-text" id="word_id">Level 1</h1></div>
+<div class="textfield" id="_field" onmouseover="PlaySound('input_sound')", onmouseout="StopSound('input_sound')">
+    <input type="text" placeholder="Enter Answer Here" id="myText" value="" oninput="input_text_sound()" style="height: 100px; font-size:24px; ">
+</div>
+<center>
+<br />
+<div class="row center" id="memory_board" ></div>
+  <button type="button" class="button" onmouseover="PlaySound('submit_sound')", onmouseout="StopSound('submit_sound')", onclick="on_click_submit()">Check spelling</button>
+
+
+</center>
+</div>
+
+</div>
+
+
+<audio id='mySound_al' src='letters/already_matched.mp3'/>
+
+<audio id='check_sound' src='spelling_audio/check_letters.mp3'/>
+<audio id='submit_sound' src='spelling_audio/check_spelling.mp3'/>
+<audio id='input_sound' src='spelling_audio/text_input.mp3' />
+<audio id='match1' src='matching.mp3'/>
+<audio id='spell1' src='spelling.mp3'/>
+<audio id='math1' src='math.mp3'/>
+<audio id='home' src='home.mp3'/>
+
+<script>onLoad();</script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/init.js"></script>
+
+</body>
+</html>

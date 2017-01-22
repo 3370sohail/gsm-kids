@@ -65,8 +65,8 @@ div#textfield{
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-    //track1 = new Audio('math_instructions.mp3');
-    //track1.play();
+    track1 = new Audio('math_instructions.mp3');
+    track1.play();
   });
   function PlaySound(soundobj) {
     var thissound = document.getElementById(soundobj);
@@ -234,7 +234,7 @@ function titleStop(){
 <center>
 <br />
 <div class="row center" id="memory_board" ></div>
-  <button type="button" class="button" onmouseover="PlaySound('submit_sound')", onmouseout="StopSound('submit_sound')", onclick="on_click_submit()">Check spelling</button>
+  <button type="button" class="button" onmouseover="PlaySound('submit_sound')", onmouseout="StopSound('submit_sound')", onclick="on_click_submit()">Check Work</button>
 
 
 </center>

@@ -39,10 +39,6 @@ div1 {
 $(document).ready(function(){
   track1 = new Audio('letters/level2_matching.mp3');
   track1.play();
-  track2.pause();
-  track1.addEventListener('ended', function() {
-    track2.play();
-  })
 });
 
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H'];
@@ -68,7 +64,7 @@ function newBoard(){
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
     j = i + 1;
-		output += '<div class="col s4 center " id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '<div class="col s3 center " id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
@@ -105,9 +101,9 @@ function memoryFlipTile(tile,val){
         memory_tile_ids = [];
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
-          audio.src = 'letters/you+passed.mp3';
+          audio.src = 'letters/you_passed.mp3';
           audio.play();
-					document.getElementById('memory_board').innerHTML = ' <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
+					document.getElementById('memory_board').innerHTML = ' <a class="black" onmouseover=PlaySound("next") onmouseout=StopSound("next") href="matching3.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a onmouseover=PlaySound("next") onmouseout=StopSound("next") class="black" href="matching2.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
@@ -176,13 +172,9 @@ function StopSound(soundobj) {
 <audio id='mySound_15' src='card/card_16.mp3'/>
 <audio id='mySound_16' src='card/card_17.mp3'/>
 <audio id='mySound_17' src='card/card_18.mp3'/>
-<audio id='mySound_18' src='card/card_19.mp3'/>
-<audio id='mySound_19' src='card/card_20.mp3'/>
-<audio id='mySound_20' src='card/card_21.mp3'/>
-<audio id='mySound_21' src='card/card_22.mp3'/>
-<audio id='mySound_22' src='card/card_23.mp3'/>
-<audio id='mySound_23' src='card/card_24.mp3'/>
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
+<audio id='replay' src='letters/replay.mp3'/>
+<audio id='next' src='letters/couninue_to_next_level.mp3'/>
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

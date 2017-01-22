@@ -106,9 +106,9 @@ function memoryFlipTile(tile,val){
         memory_tile_ids = [];
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
-          audio.src = 'letters/you+passed.mp3';
+          audio.src = 'letters/you_passed.mp3';
           audio.play();
-					document.getElementById('memory_board').innerHTML = ' <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
+					document.getElementById('memory_board').innerHTML = ' <a class="black" onmouseover=PlaySound("next") onmouseout=StopSound("next") href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a onmouseover=PlaySound("next") onmouseout=StopSound("next") class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
@@ -168,22 +168,9 @@ function StopSound(soundobj) {
 <audio id='mySound_6' src='card/card_7.mp3'/>
 <audio id='mySound_7' src='card/card_8.mp3'/>
 <audio id='mySound_8' src='card/card_9.mp3'/>
-<audio id='mySound_9' src='card/card_10.mp3'/>
-<audio id='mySound_10' src='card/card_11.mp3'/>
-<audio id='mySound_11' src='card/card_12.mp3'/>
-<audio id='mySound_12' src='card/card_13.mp3'/>
-<audio id='mySound_13' src='card/card_14.mp3'/>
-<audio id='mySound_14' src='card/card_15.mp3'/>
-<audio id='mySound_15' src='card/card_16.mp3'/>
-<audio id='mySound_16' src='card/card_17.mp3'/>
-<audio id='mySound_17' src='card/card_18.mp3'/>
-<audio id='mySound_18' src='card/card_19.mp3'/>
-<audio id='mySound_19' src='card/card_20.mp3'/>
-<audio id='mySound_20' src='card/card_21.mp3'/>
-<audio id='mySound_21' src='card/card_22.mp3'/>
-<audio id='mySound_22' src='card/card_23.mp3'/>
-<audio id='mySound_23' src='card/card_24.mp3'/>
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
+<audio id='replay' src='letters/replay.mp3'/>
+<audio id='next' src='letters/couninue_to_next_level.mp3'/>
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

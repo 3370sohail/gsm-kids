@@ -49,11 +49,11 @@ div#textfield{
 }
 .button {
     background-color: #4CAF50;
-    width: 40vh;
+    width: 60vh;
     height: 30vh;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: -55px -42px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -89,7 +89,7 @@ var num = { 1:'numbers/1.mp3', 2:'numbers/2.mp3', 3:'numbers/3.mp3', 4:'numbers/
 //var playlist = new Array('sms.mp3', 'beep.mp3');
 var x = Math.floor(Math.random() * 10);
 var y = Math.floor(Math.random() * 10);
-var sum = y + x ;
+var sum = y + x;
 
 
 function input_text_sound() {
@@ -99,17 +99,7 @@ function input_text_sound() {
     audio.src = num[char];
     audio.play();
 }
-//what happens when you hover over the text field
-function input_audio_play() {
-    audio.src = "spelling_audio/text_input.mp3";
-    audio.play();
-}
-//what happens when you stop hovering over the text field
-function input_audio_pause() {
-  audio.src = "spelling_audio/text_input.mp3";
-  audio.pause();
-  audio.currentTime = 0;
-}
+
 
 // on load
 function onLoad(){
@@ -132,30 +122,37 @@ function myLoop (i, string) {
 }
 
 function on_click_check(){
+  alert(String(sum));
+
   //when you click check button
   string = document.getElementById("myText").value;
   myLoop(0, string);
 }
 function on_click_submit(){
+  alert(String(sum));
+  alert(document.getElementById("myText").value);
+
   //when you click submit button
 
     //when the spelling is correct.
-    if (sum == document.getElementById("myText").value)
+    if (String(sum) != document.getElementById("myText").value)
     {
 
 
-        document.getElementById("myText").value = String(x) + '+' +  String(y);
+      audio.src = "spelling_audio/incorrect.mp3"
+      audio.play();
 
-        audio.src = "spelling_audio/correct.mp3"
-        audio.play();
-				var x = Math.floor(Math.random() * 10);
-				var y = Math.floor(Math.random() * 10);
-				var sum = y + x ;
     }
     //when the spelling is incorrect.
     else
     {
-        audio.src = "spelling_audio/incorrect.mp3"
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+      sum = y + x ;
+      document.getElementById("myText").value = ""
+      document.getElementById("word_id").innerHTML = String(x) + '+' +  String(y);
+
+        audio.src = "spelling_audio/correct.mp3"
         audio.play();
     }
 
@@ -165,8 +162,7 @@ function myLoop_math (i) {
   setTimeout(function () {
       if (i == 0)
       {
-				audio.src = num[x];
-				audio.play();
+
 
       }
 			if (i == 1)
@@ -189,13 +185,23 @@ function myLoop_math (i) {
 
 //play sound
 function mat_out() {
-	myLoop_math(0);
+  var audio1 = Audio();
+  audio1.src = num[x];
+  audio1.play();
+
+  var audio2 = Audio();
+  audio2.src = num["+"];
+  audio2.play();
+
+  var audio3 = Audio();
+  audio3.src = num[y];
+  audio3.play();
 
 
 }
 function mat_out_stop() {
 	$.each($('audio'), function () {
-	    this.pause();
+	    this.pause()
 			this.currentTime = 0
 	});
 }
@@ -238,14 +244,13 @@ function titleStop(){
 <div class="section no-pad-bot" id="index-banner">
 <div class="container">
 <div class="row center" onmouseover="mat_out()" onmouseout="mat_out_stop()" ><h1 class="header center orange-text" id="word_id">Level 1</h1></div>
-<div class="textfield" id="_field" onmouseover="input_audio_play()" onmouseout="input_audio_pause()">
+<div class="textfield" id="_field" onmouseover=PlaySound("input_sound") onmouseout=StopSound("input_sound")>
     <input type="text" placeholder="Entry Answer Here" id="myText" value="" oninput="input_text_sound()" style="height: 100px; font-size:24px; ">
 </div>
 <center>
 <br />
 <div class="row center" id="memory_board" ></div>
-    <button type="button" class="button" onmouseover=PlaySound("check_sound") onmouseout=StopSound("check_sound") onclick="on_click_check()">Check letters</button>
-    <button type="button" class="button" onmouseover=PlaySound("submit_sound") onmouseout=StopSound("submit_sound" onclick="on_click_submit()")>Check spelling</button>
+  <button type="button" class="button" onmouseover=PlaySound("submit_sound") onmouseout=StopSound("submit_sound") onclick="on_click_submit()">Check spelling</button>
 
 
 </center>
@@ -258,7 +263,7 @@ function titleStop(){
 
 <audio id='check_sound' src='spelling_audio/check_letters.mp3'/>
 <audio id='submit_sound' src='spelling_audio/check_spelling.mp3'/>
-
+<audio id= 'input_sound' src='spelling_audio/text_input.mp3' />
 <audio id='match1' src='matching.mp3'/>
 <audio id='spell1' src='spelling.mp3'/>
 <audio id='math1' src='math.mp3'/>

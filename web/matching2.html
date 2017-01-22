@@ -103,7 +103,7 @@ function memoryFlipTile(tile,val){
 				if(tiles_flipped == memory_array.length){
           audio.src = 'letters/you_passed.mp3';
           audio.play();
-					document.getElementById('memory_board').innerHTML = ' <a class="black" onmouseover=PlaySound("next") onmouseout=StopSound("next") href="matching3.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a onmouseover=PlaySound("next") onmouseout=StopSound("next") class="black" href="matching2.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
+					document.getElementById('memory_board').innerHTML = ' <a class="black" onmouseover=PlaySound("next") onmouseout=StopSound("next") href="matching3.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a class="black" href="matching2.html"><div1 class="col s6 m6 l6 waves-light cyan " onmouseover=PlaySound("replay") onmouseout=StopSound("replay")>Replay</div1></a>';
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
@@ -173,8 +173,8 @@ function StopSound(soundobj) {
 <audio id='mySound_16' src='card/card_17.mp3'/>
 <audio id='mySound_17' src='card/card_18.mp3'/>
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
-<audio id='replay' src='letters/replay.mp3'/>
-<audio id='next' src='letters/couninue_to_next_level.mp3'/>
+<audio id='replay' src='letters/replay_level.mp3'/>
+<audio id='next' src='letters/continue_to_next_level.mp3'/>
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

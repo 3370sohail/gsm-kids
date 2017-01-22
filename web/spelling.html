@@ -82,8 +82,8 @@ $(document).ready(function(){
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
 var memory_tile_ids = [];
-var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE", "VAULT", "EMPHASIZE", "BIRTHDAY", "NUMERAL", "MILLION"];
-var list_of_words_audio = {COMMA:"spelling_audio/comma.mp3", LUNAR:"spelling_audio/lunar.mp3", BUTTER:"spelling_audio/butter.mp3", MUTTER:"spelling_audio/mutter.mp3", STORE:"spelling_audio/store.mp3", VAULT:"spelling_audio/vault.mp3", EMPHASIZE:"spelling_audio/emphasize.mp3", BIRTHDAY:"spelling_audio/birthday.mp3", NUMERAL:"spelling_audio/numeral.mp3", MILLION:"spelling_audio/million.mp3"};
+var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE", "VAULT", "HAPPY", "BIRTHDAY", "NUMERAL", "MILLION"];
+var list_of_words_audio = {COMMA:"spelling_audio/comma.mp3", LUNAR:"spelling_audio/lunar.mp3", BUTTER:"spelling_audio/butter.mp3", MUTTER:"spelling_audio/mutter.mp3", STORE:"spelling_audio/store.mp3", VAULT:"spelling_audio/vault.mp3", HAPPY:"spelling_audio/happy.mp3", BIRTHDAY:"spelling_audio/birthday.mp3", NUMERAL:"spelling_audio/numeral.mp3", MILLION:"spelling_audio/million.mp3"};
 var tiles_flipped = 0;
 var audio = new Audio(), done = '';
 var alpha = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3', M: 'letters/M.mp3', N: 'letters/N.mp3',O: 'letters/O.mp3',
@@ -174,7 +174,7 @@ var i = 0
 function on_click_check(){
 
   str1 = document.getElementById("myText").value
-  myLoop(i, str1)
+  myLoop(0, str1)
 
 
   //alert(document.getElementById("myText").value.slice(-1));
@@ -247,7 +247,7 @@ function titleStop(){
 <div class="section no-pad-bot" id="index-banner">
 <div class="container">
 <div class="row center" onmouseover="titleStart()" onmouseout="titleStop()"><h1 class="header center orange-text" id="word_id">Level 1</h1></div><div class="textfield" id="_field" onmouseover="soundHeader()" onmouseout="soundHeader2()">
-    <input type="text" id="myText" value="" oninput="myFunction()" style="height: 100px; font-size:24px; ">
+    <input type="text" placeholder="Entry Answer Here" id="myText" value="" oninput="myFunction()" style="height: 100px; font-size:24px; ">
 </div>
 <center>
 <br />

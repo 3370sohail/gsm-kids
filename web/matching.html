@@ -28,9 +28,9 @@ div#memory_board > div{
 	text-align:center;
 }
 div1 {
-	height:30vh;
+	height:50vh;
   font-size:250%;
-  text: #000;
+  color: #000;
 }
 
 </style>
@@ -46,7 +46,7 @@ $(document).ready(function(){
   })
 });
 
-var memory_array = ['A','A','B','B','C','C','D','D','E','E'];
+var memory_array = ['A','A','B','B','C','C','D','D'];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
@@ -108,7 +108,7 @@ function memoryFlipTile(tile,val){
 				if(tiles_flipped == memory_array.length){
           audio.src = 'letters/you_passed.mp3';
           audio.play();
-					document.getElementById('memory_board').innerHTML = ' <a class="black" onmouseover=PlaySound("next") onmouseout=StopSound("next") href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a onmouseover=PlaySound("next") onmouseout=StopSound("next") class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
+					document.getElementById('memory_board').innerHTML = ' <a class="black" href="matching2.html"><div1 class="col s6 m6 l6 waves-light cyan" onmouseover=PlaySound("next") onmouseout=StopSound("next")>Couninue</div1></a> <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan" onmouseover=PlaySound("replay") onmouseout=StopSound("replay")>Replay</div1></a>';
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
@@ -169,8 +169,8 @@ function StopSound(soundobj) {
 <audio id='mySound_7' src='card/card_8.mp3'/>
 <audio id='mySound_8' src='card/card_9.mp3'/>
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
-<audio id='replay' src='letters/replay.mp3'/>
-<audio id='next' src='letters/couninue_to_next_level.mp3'/>
+<audio id='replay' src='letters/replay_level.mp3'/>
+<audio id='next' src='letters/continue_to_next_level.mp3'/>
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

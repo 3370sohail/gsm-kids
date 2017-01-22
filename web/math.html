@@ -12,6 +12,10 @@
 <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 <style>
 
+input[type=text] {
+    background-color: deepskyblue;
+    color: darkorange;
+}
 
 div#memory_board{
 	width:100%;
@@ -24,108 +28,170 @@ div#memory_board > div{
   background:#34495e;
 
 	border:#000 1px solid;
-	width:9vw;
-	height:10vh;
-	margin-left:1vw;
+	width:30vw;
+	height:20vh;
+  margin-left: 40vh;
+  margin-right: auto;
   margin-bottom:1vw;
-	padding:1vw;
 	font-size:200%;
 	cursor:pointer;
 	text-align:center;
+    align-items: center
 }
 
-
+div#textfield{
+	width:100%;
+	height:70vh;
+	padding:1%;
+	margin: auto;
+  cursor:pointer;
+	text-align:center;
+}
+.button {
+    background-color: #4CAF50;
+    width: 40vh;
+    height: 30vh;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 36px;
+}
 </style>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-  track1 = new Audio('letters/level1_matching.mp3');
-  track1.play();
-});
+    track1 = new Audio('spell_instructions.mp3');
+    track1.play();
+  });
+  function PlaySound(soundobj) {
+    var thissound=document.getElementById(soundobj);
+    thissound.play();
+  }
+
+  function StopSound(soundobj) {
+      var thissound=document.getElementById(soundobj);
+      thissound.pause();
+      thissound.currentTime = 0;
+  }
+
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
 var memory_tile_ids = [];
+var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE", "VAULT", "EMPHASIZE", "BIRTHDAY", "NUMERAL", "MILLION"];
+var list_of_words_audio = {COMMA:"spelling_audio/comma.mp3", LUNAR:"spelling_audio/lunar.mp3", BUTTER:"spelling_audio/butter.mp3", MUTTER:"spelling_audio/mutter.mp3", STORE:"spelling_audio/store.mp3", VAULT:"spelling_audio/vault.mp3", HAPPY:"spelling_audio/happy.mp3", BIRTHDAY:"spelling_audio/birthday.mp3", NUMERAL:"spelling_audio/numeral.mp3", MILLION:"spelling_audio/million.mp3"};
 var tiles_flipped = 0;
 var audio = new Audio(), done = '';
-var playlist = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3'};
+var alpha = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3', M: 'letters/M.mp3', N: 'letters/N.mp3',O: 'letters/O.mp3',
+P:'letters/P.mp3', Q:'letters/Q.mp3', R:'letters/R.mp3', S:'letters/S.mp3', T:'letters/T.mp3', U:'letters/U.mp3', V:'letters/V.mp3', W:'letters/W.mp3', X:'letters/X.mp3', Y:'letters/Y.mp3', Z:'letters/Z.mp3'}
 
-Array.prototype.memory_tile_shuffle = function(){
-    var i = this.length, j, temp;
-    while(--i > 0){
-        j = Math.floor(Math.random() * (i+1));
-        temp = this[j];
-        this[j] = this[i];
-        this[i] = temp;
-    }
+var num = { 1:'letters/A.mp3', 2:'letters/B.mp3', 3:'letters/C.mp3', 4:'letters/D.mp3', 5:'letters/E.mp3', 6:'letters/F.mp3', 7:'letters/G.mp3', 8:'letters/H.mp3', 9:'letters/I.mp3', 0:'letters/J.mp3'};
+//var playlist = new Array('sms.mp3', 'beep.mp3');
+var x = Math.floor(Math.random() * 10);
+var y = Math.floor(Math.random() * 10);
+var sum = y + x ;
+
+function myFunction() {
+    var x = document.getElementById("myText").value.slice(-1);
+
+    audio.src = alpha[x.toUpperCase()];
+    audio.play();
 }
+
+function soundHeader() {
+    audio.src = "spelling_audio/text_input.mp3";
+    audio.play();
+    var x = document.getElementById("myText").value.slice(-1);
+}
+function soundHeader2() {
+  audio.src = "spelling_audio/text_input.mp3";
+  audio.pause();
+  audio.currentTime = 0;
+}
+
 function newBoard(){
+    document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 4) + 1)];
 	tiles_flipped = 0;
 	var output = '';
-    memory_array.memory_tile_shuffle();
-	for(var i = 0; i < memory_array.length; i++){
+	for(var i = 0; i < 2; i++){
     j = i + 1;
-		output += '<div class="col s4 m4 l4 center" id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
-function memoryFlipTile(tile,val){
-	if(tile.innerHTML == "" && memory_values.length < 2){
-		tile.style.background = '#FFF';
-		tile.innerHTML = val;
-		if(memory_values.length == 0){
-			memory_values.push(val);
-			memory_tile_ids.push(tile.id);
-      audio.src = playlist[val]
-      audio.play();
-      done = tile.id;
-      //console.log(tile);
-      //console.log(val);
+var sndLetItSnow = new Audio("card/card_8.mp3'");
+var sndSanta = new Audio("card/card_12.mp3'");
 
-		} else if(memory_values.length == 1){
-			memory_values.push(val);
-			memory_tile_ids.push(tile.id);
-      audio.src = playlist[val];
-      audio.play();
+var playlist = [sndLetItSnow, sndSanta];
 
-			if(memory_values[0] == memory_values[1]){
-        audio.src = 'letters/set_completed.mp3';
-        audio.play();
-        tiles_flipped += 2;
-        document.getElementById(memory_tile_ids[0]).onmouseover = "PlaySound('mySound_al')";
-        document.getElementById(memory_tile_ids[0]).onmouseout = "StopSound('mySound_al')";
-        document.getElementById(memory_tile_ids[1]).onmouseover = "PlaySound('mySound_al')";
-        document.getElementById(memory_tile_ids[1]).onmouseout = "StopSound('mySound_al')";
-        console.log(tile);
-        console.log(val);
-				// Clear both arrays
-				memory_values = [];
-        memory_tile_ids = [];
-				// Check to see if the whole board is cleared
-				if(tiles_flipped == memory_array.length){
-					alert("Board cleared... generating new board");
-					document.getElementById('memory_board').innerHTML = "";
-					newBoard();
-				}setTimeout(flip2Back, 1000);
-			} else {
-				function flip2Back(){
-				    // Flip the 2 tiles back over
-				    var tile_1 = document.getElementById(memory_tile_ids[0]);
-				    var tile_2 = document.getElementById(memory_tile_ids[1]);
-            audio.src = 'letters/not_a_match.mp3';
-            audio.play();
-				    tile_1.style.background = '#34495e';
-            	    tile_1.innerHTML = "";
-				    tile_2.style.background = '#34495e';
-            	    tile_2.innerHTML = "";
-				    // Clear both arrays
-				    memory_values = [];
-            	    memory_tile_ids = [];
-				}
-				setTimeout(flip2Back, 700);
-			}
-		}
-	}
+var current = null;
+var idx = 0;
+
+function playSound2() {
+  if (current === null || current.ended) {
+    // go to next
+    current = playlist[idx++];
+
+    // check if is the last of playlist and return to first
+    if (idx >= playlist.length)
+        idx = 0;
+
+     // return to begin
+     current.currentTime=0;
+
+     // play
+     current.play();
+   }
+
 }
+function myLoop (i, str1) {
+  setTimeout(function () {
+      if (i >= 1)
+      {
+        audio.src = alpha[str1[i-1].toUpperCase()];
+        audio.play();
+      }
+
+      i++;
+      if (i < str1.length + 1) {
+         myLoop(i, str1);
+      }
+   }, 500)
+}
+
+var i = 0
+function on_click_check(){
+
+  str1 = document.getElementById("myText").value
+  myLoop(i, str1)
+
+
+  //alert(document.getElementById("myText").value.slice(-1));
+  setInterval(playSound2, 45);
+  var thissound=document.getElementById(soundobj);
+
+}
+function on_click_submit(){
+    if (document.getElementById("word_id").innerHTML.toLowerCase() == document.getElementById("myText").value.toLowerCase())
+    {
+        document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 4) + 1)];
+        document.getElementById("myText").value = "";
+
+        audio.src = "spelling_audio/correct.mp3"
+        audio.play();
+    }
+    else
+    {
+        audio.src = "spelling_audio/incorrect.mp3"
+        audio.play();
+    }
+
+}
+
 function PlaySound(soundobj) {
     var thissound=document.getElementById(soundobj);
     thissound.play();
@@ -136,55 +202,72 @@ function StopSound(soundobj) {
     thissound.pause();
     thissound.currentTime = 0;
 }
+
+function titleStart(){
+  audio.src =list_of_words_audio[document.getElementById("word_id").innerHTML];
+  audio.play();
+}
+function titleStop(){
+  audio.src =list_of_words_audio[document.getElementById("word_id").innerHTML];
+  audio.paue();
+  audio.currentTime = 0;
+}
+
 </script>
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">GSM-Kids</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo" onmouseover='PlaySound("home")', onmouseout='StopSound("home")'>GSM-Kids</a>
 
+
+      <ul class="right hide-on-med-and-down">
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
+      </ul>
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="matching.html">Navbar Link</a></li>
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
       </ul>
       <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 <div class="section no-pad-bot" id="index-banner">
 <div class="container">
-<div class="row center"><h1 class="header center orange-text">Level 1</h1></div>
-<div class="row center" id="memory_board"></div>
+<div class="row center" onmouseover="titleStart()" onmouseout="titleStop()"><h1 class="header center orange-text" id="word_id">Level 1</h1></div><div class="textfield" id="_field" onmouseover="soundHeader()" onmouseout="soundHeader2()">
+    <input type="text" id="myText" value="" oninput="myFunction()" style="height: 100px; font-size:24px; ">
 </div>
+<center>
+<br />
+<div class="row center" id="memory_board" ></div>
+    <button type="button" class="button" onmouseover=PlaySound("check_sound") onmouseout=StopSound("check_sound") onclick="on_click_check()">Check letters</button>
+    <button type="button" class="button" onmouseover=PlaySound("submit_sound") onmouseout=StopSound("submit_sound") onclick="on_click_submit()">Check spelling</button>
+
+
+</center>
 </div>
-<audio id='mySound_0' src='card/card_1.mp3'/>
-<audio id='mySound_1' src='card/card_2.mp3'/>
-<audio id='mySound_2' src='card/card_3.mp3'/>
-<audio id='mySound_3' src='card/card_4.mp3'/>
-<audio id='mySound_4' src='card/card_5.mp3'/>
-<audio id='mySound_5' src='card/card_6.mp3'/>
-<audio id='mySound_6' src='card/card_7.mp3'/>
-<audio id='mySound_7' src='card/card_8.mp3'/>
-<audio id='mySound_8' src='card/card_9.mp3'/>
-<audio id='mySound_9' src='card/card_10.mp3'/>
-<audio id='mySound_10' src='card/card_11.mp3'/>
-<audio id='mySound_11' src='card/card_12.mp3'/>
-<audio id='mySound_12' src='card/card_13.mp3'/>
-<audio id='mySound_13' src='card/card_14.mp3'/>
-<audio id='mySound_14' src='card/card_15.mp3'/>
-<audio id='mySound_15' src='card/card_16.mp3'/>
-<audio id='mySound_16' src='card/card_17.mp3'/>
-<audio id='mySound_17' src='card/card_18.mp3'/>
-<audio id='mySound_18' src='card/card_19.mp3'/>
-<audio id='mySound_19' src='card/card_20.mp3'/>
-<audio id='mySound_20' src='card/card_21.mp3'/>
-<audio id='mySound_21' src='card/card_22.mp3'/>
-<audio id='mySound_22' src='card/card_23.mp3'/>
-<audio id='mySound_23' src='card/card_24.mp3'/>
+
+</div>
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
+
+<audio id='check_sound' src='spelling_audio/check_letters.mp3'/>
+<audio id='submit_sound' src='spelling_audio/check_spelling.mp3'/>
+
+<audio id='match1' src='matching.mp3'/>
+<audio id='spell1' src='spelling.mp3'/>
+<audio id='math1' src='math.mp3'/>
+<audio id='home' src='home.mp3'/>
+
+
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+
 </body>
 </html>

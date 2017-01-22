@@ -79,12 +79,8 @@ $(document).ready(function(){
       thissound.currentTime = 0;
   }
 
-var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
-var memory_values = [];
-var memory_tile_ids = [];
 var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE", "VAULT", "HAPPY", "BIRTHDAY", "NUMERAL", "MILLION"];
 var list_of_words_audio = {COMMA:"spelling_audio/comma.mp3", LUNAR:"spelling_audio/lunar.mp3", BUTTER:"spelling_audio/butter.mp3", MUTTER:"spelling_audio/mutter.mp3", STORE:"spelling_audio/store.mp3", VAULT:"spelling_audio/vault.mp3", HAPPY:"spelling_audio/happy.mp3", BIRTHDAY:"spelling_audio/birthday.mp3", NUMERAL:"spelling_audio/numeral.mp3", MILLION:"spelling_audio/million.mp3"};
-var tiles_flipped = 0;
 var audio = new Audio(), done = '';
 var alpha = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3', M: 'letters/M.mp3', N: 'letters/N.mp3',O: 'letters/O.mp3',
 P:'letters/P.mp3', Q:'letters/Q.mp3', R:'letters/R.mp3', S:'letters/S.mp3', T:'letters/T.mp3', U:'letters/U.mp3', V:'letters/V.mp3', W:'letters/W.mp3', X:'letters/X.mp3', Y:'letters/Y.mp3', Z:'letters/Z.mp3'}
@@ -92,105 +88,66 @@ P:'letters/P.mp3', Q:'letters/Q.mp3', R:'letters/R.mp3', S:'letters/S.mp3', T:'l
 var playlist = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3'};
 //var playlist = new Array('sms.mp3', 'beep.mp3');
 
-Array.prototype.memory_tile_shuffle = function(){
-    var i = this.length, j, temp;
-    while(--i > 0){
-        j = Math.floor(Math.random() * (i+1));
-        temp = this[j];
-        this[j] = this[i];
-        this[i] = temp;
-    }
-}
 
-function myFunction() {
-    var x = document.getElementById("myText").value.slice(-1);
+function input_text_sound() {
+  //find last character of the input text.
+    var char = document.getElementById("myText").value.slice(-1);
 
-    audio.src = alpha[x.toUpperCase()];
+    audio.src = alpha[char.toUpperCase()];
     audio.play();
 }
-
-function soundHeader() {
+//what happens when you hover over the text field
+function input_audio_play() {
     audio.src = "spelling_audio/text_input.mp3";
     audio.play();
-    var x = document.getElementById("myText").value.slice(-1);
 }
-function soundHeader2() {
+//what happens when you stop hovering over the text field
+function input_audio_pause() {
   audio.src = "spelling_audio/text_input.mp3";
   audio.pause();
   audio.currentTime = 0;
 }
 
-function newBoard(){
-    document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 4) + 1)];
-	tiles_flipped = 0;
-	var output = '';
-	for(var i = 0; i < 2; i++){
-    j = i + 1;
-		output += '';
-	}
-	document.getElementById('memory_board').innerHTML = output;
+// on load
+function onLoad(){
+    document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 10) + 1)];
+	  document.getElementById('memory_board').innerHTML = output;
 }
-var sndLetItSnow = new Audio("card/card_8.mp3'");
-var sndSanta = new Audio("card/card_12.mp3'");
-
-var playlist = [sndLetItSnow, sndSanta];
-
-var current = null;
-var idx = 0;
-
-function playSound2() {
-  if (current === null || current.ended) {
-    // go to next
-    current = playlist[idx++];
-
-    // check if is the last of playlist and return to first
-    if (idx >= playlist.length)
-        idx = 0;
-
-     // return to begin
-     current.currentTime=0;
-
-     // play
-     current.play();
-   }
-
-}
-function myLoop (i, str1) {
+//loop that plays audio of each letter inputted.
+function myLoop (i, string) {
   setTimeout(function () {
       if (i >= 1)
       {
-        audio.src = alpha[str1[i-1].toUpperCase()];
+        audio.src = alpha[string[i-1].toUpperCase()];
         audio.play();
       }
 
       i++;
       if (i < str1.length + 1) {
-         myLoop(i, str1);
+         myLoop(i, string);
       }
    }, 500)
 }
 
-var i = 0
 function on_click_check(){
-
-  str1 = document.getElementById("myText").value
-  myLoop(0, str1)
-
-
-  //alert(document.getElementById("myText").value.slice(-1));
+  //when you click check button
+  string = document.getElementById("myText").value
+  myLoop(0, string)
   setInterval(playSound2, 45);
-  var thissound=document.getElementById(soundobj);
-
 }
 function on_click_submit(){
+  //when you click submit button
+
+    //when the spelling is correct.
     if (document.getElementById("word_id").innerHTML.toLowerCase() == document.getElementById("myText").value.toLowerCase())
     {
-        document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 4) + 1)];
+        document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 10) + 1)];
         document.getElementById("myText").value = "";
 
         audio.src = "spelling_audio/correct.mp3"
         audio.play();
     }
+    //when the spelling is incorrect.
     else
     {
         audio.src = "spelling_audio/incorrect.mp3"
@@ -199,21 +156,24 @@ function on_click_submit(){
 
 }
 
+//play sound
 function PlaySound(soundobj) {
     var thissound=document.getElementById(soundobj);
     thissound.play();
 }
-
+//stop soound
 function StopSound(soundobj) {
     var thissound=document.getElementById(soundobj);
     thissound.pause();
     thissound.currentTime = 0;
 }
 
+//hover over title
 function titleStart(){
   audio.src =list_of_words_audio[document.getElementById("word_id").innerHTML];
   audio.play();
 }
+//stop hovering over title
 function titleStop(){
   audio.src =list_of_words_audio[document.getElementById("word_id").innerHTML];
   audio.paue();
@@ -246,8 +206,8 @@ function titleStop(){
   </nav>
 <div class="section no-pad-bot" id="index-banner">
 <div class="container">
-<div class="row center" onmouseover="titleStart()" onmouseout="titleStop()"><h1 class="header center orange-text" id="word_id">Level 1</h1></div><div class="textfield" id="_field" onmouseover="soundHeader()" onmouseout="soundHeader2()">
-    <input type="text" placeholder="Entry Answer Here" id="myText" value="" oninput="myFunction()" style="height: 100px; font-size:24px; ">
+<div class="row center" onmouseover="titleStart()" onmouseout="titleStop()"><h1 class="header center orange-text" id="word_id">Level 1</h1></div><div class="textfield" id="_field" onmouseover="input_audio_play()" onmouseout="input_audio_pause()">
+    <input type="text" placeholder="Entry Answer Here" id="myText" value="" oninput="input_text_sound()" style="height: 100px; font-size:24px; ">
 </div>
 <center>
 <br />
@@ -260,31 +220,6 @@ function titleStop(){
 </div>
 
 </div>
-<audio id='mySound_0' src='card/card_1.mp3'/>
-<audio id='mySound_1' src='card/card_2.mp3'/>
-<audio id='mySound_2' src='card/card_3.mp3'/>
-<audio id='mySound_3' src='card/card_4.mp3'/>
-<audio id='mySound_4' src='card/card_5.mp3'/>
-<audio id='mySound_5' src='card/card_6.mp3'/>
-<audio id='mySound_6' src='card/card_7.mp3'/>
-<audio id='mySound_7' src='card/card_8.mp3'/>
-<audio id='mySound_8' src='card/card_9.mp3'/>
-<audio id='mySound_9' src='card/card_10.mp3'/>
-<audio id='mySound_10' src='card/card_11.mp3'/>
-<audio id='mySound_11' src='card/card_12.mp3'/>
-<audio id='mySound_12' src='card/card_13.mp3'/>
-<audio id='mySound_13' src='card/card_14.mp3'/>
-<audio id='mySound_14' src='card/card_15.mp3'/>
-<audio id='mySound_15' src='card/card_16.mp3'/>
-<audio id='mySound_16' src='card/card_17.mp3'/>
-<audio id='mySound_17' src='card/card_18.mp3'/>
-<audio id='mySound_18' src='card/card_19.mp3'/>
-<audio id='mySound_19' src='card/card_20.mp3'/>
-<audio id='mySound_20' src='card/card_21.mp3'/>
-<audio id='mySound_21' src='card/card_22.mp3'/>
-<audio id='mySound_22' src='card/card_23.mp3'/>
-<audio id='mySound_23' src='card/card_24.mp3'/>
-<audio id='mySound_al' src='letters/already_matched.mp3'/>
 
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
 
@@ -296,8 +231,7 @@ function titleStop(){
 <audio id='math1' src='math.mp3'/>
 <audio id='home' src='home.mp3'/>
 
-
-<script>newBoard();</script>
+<script>onLoad();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>

@@ -64,6 +64,20 @@ div#textfield{
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+    track1 = new Audio('spell_instructions.mp3');
+    track1.play();
+  });
+  function PlaySound(soundobj) {
+    var thissound=document.getElementById(soundobj);
+    thissound.play();
+  }
+
+  function StopSound(soundobj) {
+      var thissound=document.getElementById(soundobj);
+      thissound.pause();
+      thissound.currentTime = 0;
+  }
 
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
@@ -210,15 +224,22 @@ function titleStop(){
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">GSM-Kids</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo" onmouseover='PlaySound("GSM-Kids")', onmouseout='StopSound("GSM-Kids")'>GSM-Kids</a>
 
 
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
       </ul>
-
+      <ul class="right hide-on-med-and-down">
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
+      </ul>
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="matching.html">Navbar Link</a></li>
+        <li><a href="matching.html" onmouseover='PlaySound("match1")', onmouseout='StopSound("match1")'>Matching</a></li>
+        <li><a href="spelling.html" onmouseover='PlaySound("spell1")', onmouseout='StopSound("spell1")'>Spelling</a></li>
+        <li><a href="math.html" onmouseover="PlaySound('math1')", onmouseout="StopSound('math1')">Math</a></li>
       </ul>
       <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -269,6 +290,12 @@ function titleStop(){
 
 <audio id='check_sound' src='spelling_audio/check_letters.mp3'/>
 <audio id='submit_sound' src='spelling_audio/check_spelling.mp3'/>
+
+<audio id='match1' src='matching.mp3'/>
+<audio id='spell1' src='spelling.mp3'/>
+<audio id='math1' src='math.mp3'/>
+<audio id='GSM-Kids' src='GSM-Kids.mp3'/>
+
 
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

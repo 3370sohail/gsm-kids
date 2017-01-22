@@ -30,7 +30,7 @@ div#memory_board > div{
 div1 {
 	height:30vh;
   font-size:250%;
-  text: #000
+  text: #000;
 }
 
 </style>
@@ -106,8 +106,9 @@ function memoryFlipTile(tile,val){
         memory_tile_ids = [];
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
-
-					document.getElementById('memory_board').innerHTML = ' <a href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
+          audio.src = 'letters/you+passed.mp3';
+          audio.play();
+					document.getElementById('memory_board').innerHTML = ' <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){

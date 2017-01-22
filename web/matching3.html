@@ -37,8 +37,7 @@ div1 {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-  track1 = new Audio('letters/level1_matching.mp3');
-  track2 = new Audio('match_information.mp3')
+  track1 = new Audio('letters/level3_matching.mp3');
   track1.play();
   track2.pause();
   track1.addEventListener('ended', function() {
@@ -46,7 +45,7 @@ $(document).ready(function(){
   })
 });
 
-var memory_array = ['A','A','B','B','C','C','D','D','E','E'];
+var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
@@ -69,7 +68,7 @@ function newBoard(){
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
     j = i + 1;
-		output += '<div class="col s6 center " id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '<div class="col s2 center " id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
@@ -156,7 +155,7 @@ function StopSound(soundobj) {
     </div>
   </nav>
 <div class="container">
-<div class="row center"><h1 class="header center orange-text">Level 1</h1></div>
+<div class="row center"><h1 class="header center orange-text">Level 3</h1></div>
 <div class="row center" id="memory_board"></div>
 </div>
 <audio id='mySound_0' src='card/card_1.mp3'/>

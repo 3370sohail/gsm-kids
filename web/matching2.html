@@ -16,33 +16,36 @@
 div#memory_board{
 	width:100%;
 	height:100%;
-	padding:1%;
-	margin: auto;
 }
 div#memory_board > div{
 
   background:#34495e;
-
-	border:#000 1px solid;
-	width:15vw;
-	height:16vh;
-	margin-left:1vw;
-  margin-bottom:1vw;
+	border:#000 0.5vw solid;
+	height:20vh;
 	padding:1vw;
-	font-size:250%;
+  font-size:250%;
 	cursor:pointer;
 	text-align:center;
 }
-
+div1 {
+	height:30vh;
+  font-size:250%;
+  text: #000;
+}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-  track1 = new Audio('letters/level1_matching.mp3');
+  track1 = new Audio('letters/level2_matching.mp3');
   track1.play();
+  track2.pause();
+  track1.addEventListener('ended', function() {
+    track2.play();
+  })
 });
-var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
+
+var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H'];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
@@ -65,7 +68,7 @@ function newBoard(){
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
     j = i + 1;
-		output += '<div class="col s4 m4 l4 center" id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '<div class="col s4 center " id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
@@ -73,6 +76,7 @@ function memoryFlipTile(tile,val){
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = '#FFF';
 		tile.innerHTML = val;
+    setTimeout(flip2Back, 700);
 		if(memory_values.length == 0){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
@@ -101,8 +105,9 @@ function memoryFlipTile(tile,val){
         memory_tile_ids = [];
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
-
-					document.getElementById('memory_board').innerHTML = '<br><br><div1 href="matching.html" style =""class=" col s6 m6 l6 waves-light btn-large">Couninue</div1> <div1 style =""class=" col s6 m6 l6 waves-light btn-large" href="matching.html" class=" waves-light btn-large">Replay</div1>';
+          audio.src = 'letters/you+passed.mp3';
+          audio.play();
+					document.getElementById('memory_board').innerHTML = ' <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a class="black" href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
 				}setTimeout(flip2Back, 1000);
 			} else {
 				function flip2Back(){
@@ -149,8 +154,10 @@ function StopSound(soundobj) {
       <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-<div class="row center"><h1 class="header center orange-text">Level 1</h1></div>
+<div class="container">
+<div class="row center"><h1 class="header center orange-text">Level 2</h1></div>
 <div class="row center" id="memory_board"></div>
+</div>
 <audio id='mySound_0' src='card/card_1.mp3'/>
 <audio id='mySound_1' src='card/card_2.mp3'/>
 <audio id='mySound_2' src='card/card_3.mp3'/>

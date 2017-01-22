@@ -12,48 +12,64 @@
 <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 <style>
 
+input[type=text] {
+    background-color: deepskyblue;
+    color: darkorange;
+}
 
 div#memory_board{
 	width:100%;
 	height:100%;
+	padding:1%;
+	margin: auto;
 }
 div#memory_board > div{
 
   background:#34495e;
-	border:#000 0.5vw solid;
+
+	border:#000 1px solid;
+	width:30vw;
 	height:20vh;
-	padding:1vw;
-  font-size:250%;
+    margin-left: 40vh;
+    margin-right: auto;
+  margin-bottom:1vw;
+	font-size:200%;
 	cursor:pointer;
 	text-align:center;
-}
-div1 {
-	height:30vh;
-  font-size:250%;
-  text: #000
+    align-items: center
 }
 
+div#textfield{
+	width:100%;
+	height:70vh;
+	padding:1%;
+	margin: auto;
+    cursor:pointer;
+	text-align:center;
+}
+.button {
+    background-color: #4CAF50;
+    width: 40vh;
+    height: 30vh;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 36px;
+}
 </style>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-  track1 = new Audio('letters/level1_matching.mp3');
-  track2 = new Audio('match_information.mp3')
-  track1.play();
-  track2.pause();
-  track1.addEventListener('ended', function() {
-    track2.play();
-  })
-});
-<<<<<<< HEAD
-var memory_array = ['A','A','B','B','C','C','D','D'];
-=======
-  
 
 var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
->>>>>>> origin/master
 var memory_values = [];
 var memory_tile_ids = [];
+var list_of_words = ["COMMA", "LUNAR", "BUTTER", "MUTTER", "STORE"];
+
 var tiles_flipped = 0;
 var audio = new Audio(), done = '';
 var playlist = { A:'letters/A.mp3', B:'letters/B.mp3', C:'letters/C.mp3', D:'letters/D.mp3', E:'letters/E.mp3', F:'letters/F.mp3', G:'letters/G.mp3', H:'letters/H.mp3', I:'letters/I.mp3', J:'letters/J.mp3', K:'letters/K.mp3', L:'letters/L.mp3'};
@@ -68,71 +84,55 @@ Array.prototype.memory_tile_shuffle = function(){
         this[i] = temp;
     }
 }
+
+function myFunction() {
+    audio.src = "letters/A.mp3";
+    audio.play();
+    var x = document.getElementById("myText").value.slice(-1);
+}
+
+function soundHeader() {
+    audio.src = "letters/A.mp3";
+    audio.play();
+    var x = document.getElementById("myText").value.slice(-1);
+}
+function soundHeader2() {
+    StopSound("mySound_1")
+    var x = document.getElementById("myText").value.slice(-1);
+}
+
 function newBoard(){
+    document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 4) + 1)];
 	tiles_flipped = 0;
 	var output = '';
-    memory_array.memory_tile_shuffle();
-	for(var i = 0; i < memory_array.length; i++){
+	for(var i = 0; i < 2; i++){
     j = i + 1;
-		output += '<div class="col s6 center " id="tile_'+j+'" onmouseover=PlaySound("mySound_'+i+'") onmouseout=StopSound("mySound_'+i+'") onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
-function memoryFlipTile(tile,val){
-	if(tile.innerHTML == "" && memory_values.length < 2){
-		tile.style.background = '#FFF';
-		tile.innerHTML = val;
-    setTimeout(flip2Back, 700);
-		if(memory_values.length == 0){
-			memory_values.push(val);
-			memory_tile_ids.push(tile.id);
-      audio.src = playlist[val]
-      audio.play();
-      done = tile.id;
-      //console.log(tile);
-      //console.log(val);
 
-		} else if(memory_values.length == 1){
-			memory_values.push(val);
-			memory_tile_ids.push(tile.id);
-      audio.src = playlist[val];
-      audio.play();
+function on_click_check(){
+    var thissound=document.getElementById(soundobj);
+    alert(document.getElementById("myText").value);
 
-			if(memory_values[0] == memory_values[1]){
-        audio.src = 'letters/set_completed.mp3';
+}
+function on_click_submit(){
+    if (document.getElementById("word_id").innerHTML.toLowerCase() == document.getElementById("myText").value.toLowerCase())
+    {
+        document.getElementById("word_id").innerHTML = list_of_words[Math.floor((Math.random() * 4) + 1)];
+        document.getElementById("myText").value = "";
+        alert(tile.id);
+
+        audio.src = playlist[val]
         audio.play();
-        tiles_flipped += 2;
-        document.getElementById(memory_tile_ids[0]).onmouseover = "PlaySound('mySound_al')";
-        document.getElementById(memory_tile_ids[0]).onmouseout = "StopSound('mySound_al')";
-        document.getElementById(memory_tile_ids[1]).onmouseover = "PlaySound('mySound_al')";
-        document.getElementById(memory_tile_ids[1]).onmouseout = "StopSound('mySound_al')";
-				// Clear both arrays
-				memory_values = [];
-        memory_tile_ids = [];
-				// Check to see if the whole board is cleared
-				if(tiles_flipped == memory_array.length){
+    }
+}
 
-					document.getElementById('memory_board').innerHTML = ' <a href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Couninue</div1></a> <a href="matching.html"><div1 class="col s6 m6 l6 waves-light cyan ">Replay</div1></a>';
-				}setTimeout(flip2Back, 1000);
-			} else {
-				function flip2Back(){
-				    // Flip the 2 tiles back over
-				    var tile_1 = document.getElementById(memory_tile_ids[0]);
-				    var tile_2 = document.getElementById(memory_tile_ids[1]);
-            audio.src = 'letters/not_a_match.mp3';
-            audio.play();
-				    tile_1.style.background = '#34495e';
-            	    tile_1.innerHTML = "";
-				    tile_2.style.background = '#34495e';
-            	    tile_2.innerHTML = "";
-				    // Clear both arrays
-				    memory_values = [];
-            	    memory_tile_ids = [];
-				}
-				setTimeout(flip2Back, 700);
-			}
-		}
-	}
+function memoryFlipTile(tile,val){
+
+
+
 }
 function PlaySound(soundobj) {
     var thissound=document.getElementById(soundobj);
@@ -148,20 +148,35 @@ function StopSound(soundobj) {
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">GSM-Kids</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">GSM-Kids</a>
+
+
       <ul class="right hide-on-med-and-down">
-        <li><a href="matching.html">Matching Game</a></li>
+        <li><a href="#">Navbar Link</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="matching.html">Matching Game</a></li>
+        <li><a href="matching.html">Navbar Link</a></li>
       </ul>
       <a href="matching.html" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+<div class="section no-pad-bot" id="index-banner">
 <div class="container">
-<div class="row center"><h1 class="header center orange-text">Level 1</h1></div>
-<div class="row center" id="memory_board"></div>
+<div class="row center" onmouseover=PlaySound("mySound_1") onmouseout=StopSound("mySound_1")><h1 class="header center orange-text" id="word_id">Level 1</h1></div>
+<div class="textfield" id="_field" onmouseover="soundHeader()" onmouseout="soundHeader2()">
+    <input type="text" id="myText" value="" oninput="myFunction()" style="height: 100px; font-size:24px; ">
+</div>
+<center>
+<br />
+<div class="row center" id="memory_board" ></div>
+    <button type="button" class="button" onmouseover=PlaySound("mySound_1") onmouseout=StopSound("mySound_1") onclick="on_click_check()">Check spelling</button>
+    <button type="button" class="button" onmouseover=PlaySound("mySound_2") onmouseout=StopSound("mySound_2" onclick="on_click_submit()")>Submit spelling</button>
+
+
+</center>
+</div>
+
 </div>
 <audio id='mySound_0' src='card/card_1.mp3'/>
 <audio id='mySound_1' src='card/card_2.mp3'/>
@@ -188,9 +203,13 @@ function StopSound(soundobj) {
 <audio id='mySound_22' src='card/card_23.mp3'/>
 <audio id='mySound_23' src='card/card_24.mp3'/>
 <audio id='mySound_al' src='letters/already_matched.mp3'/>
+
+<audio id='mySound_al' src='letters/already_matched.mp3'/>
+
 <script>newBoard();</script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+
 </body>
 </html>

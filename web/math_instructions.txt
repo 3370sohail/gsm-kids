@@ -1,0 +1,9 @@
+This is a math game. You will be presented with an equation adding 2 numbers 
+that are lower than 10. Underneath will be a button when hovered over reads 
+the message, "Click to enter input". When your mouse hovers over the equation, 
+it will be read out to you. When you type your answer and press enter, you will 
+be presented with either "Incorrect" or "Correct". If you are incorrect, you will 
+be met with an "Incorrect" message and prompted to continue imputing until it is 
+correct.  When you are correct,you will be met with a "correct" message and be 
+given a new equation. After you have answered 5 equations correctly, you
+are met with a congratulatory statement with two options, Replay or Continue. 

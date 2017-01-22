@@ -1,0 +1,6 @@
+This is a matching game. When you hover over a face down card, 
+The card number will be read back. When you click on a card, 
+you will be read back the card value. When you click two cards 
+in a row, you will be given "set completed" or "not a match" 
+message. When you finish matching, you will be met with a 
+congratulatory statement with two options, Replay or Continue. 
